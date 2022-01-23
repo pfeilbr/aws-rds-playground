@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  aws-rds-playground
+
+  Sample SAM Template for aws-rds-playground
+  
+Resources:
+  
+  MyDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: "mydb01"
+      AllocatedStorage: "5"
+      DBInstanceClass: db.t3.micro
+      Engine: postgres
+      MasterUsername: admin01
+      MasterUserPassword: admin01admin01
+      VPCSecurityGroups:
+        - sg-90433feb
+      DBSubnetGroupName: !Ref MyDBSubnetGroup
+    DeletionPolicy: Snapshot
+    UpdateReplacePolicy: Snapshot
+
+  MyDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: MyDBSubnetGroup
+      SubnetIds:
+        - subnet-4700526d
+        - subnet-af5052d9
+
+# Outputs:
